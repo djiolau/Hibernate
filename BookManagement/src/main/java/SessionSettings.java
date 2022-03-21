@@ -18,7 +18,7 @@ public class SessionSettings {
         Properties properties = new Properties();
         properties.put(Environment.URL, "jdbc:mysql://localhost:3306/bookmanagement");
         properties.put(Environment.USER, "root");
-        properties.put(Environment.PASS, "Locked004");
+        properties.put(Environment.PASS, "");
         properties.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
         properties.put(Environment.SHOW_SQL, true);
         properties.put(Environment.HBM2DDL_AUTO, "update");
