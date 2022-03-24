@@ -3,6 +3,8 @@ package services;
 import dao.AuthorDao;
 import dao.BookDao;
 import entities.AuthorModel;
+import exceptions.DuplicateException;
+import exceptions.EntityNotFoundException;
 
 import java.util.List;
 
@@ -15,8 +17,13 @@ public class AuthorService {
         this.bookDao = bookDao;
     }
 
-    public void addAuthor(AuthorModel newAuthor){
+    public void addAuthor(AuthorModel newAuthor) throws DuplicateException {
         List<AuthorModel> authors = authorDao.getAllAuthors();
+        for (AuthorModel author : authors){
+            if ((author.getFirstName() + author.getLastName()).equals((newAuthor.getFirstName() + newAuthor.getLastName()))){
+                throw  new DuplicateException();
+            }
+        }
         authorDao.addAuthor(newAuthor);
     }
 
@@ -25,8 +32,11 @@ public class AuthorService {
         return authors;
     }
 
-    public void deleteAuthor(int id){
+    public void deleteAuthor(int id) throws EntityNotFoundException {
         AuthorModel author = authorDao.findById(id);
+        if (author == null){
+            throw new EntityNotFoundException();
+        }
         authorDao.deleteAuthor(author);
     }
 }
